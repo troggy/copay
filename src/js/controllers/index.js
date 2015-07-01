@@ -86,7 +86,7 @@ angular.module('copayApp.controllers').controller('indexController', function($r
     self.totalBalanceAlternative = null;
     self.notAuthorized = false;
     self.txHistory = [];
-	self.assets = [];
+    self.assets = [];
     self.txHistoryPaging = false;
     self.pendingTxProposalsCountForUs = null;
     $timeout(function() {
@@ -227,11 +227,11 @@ angular.module('copayApp.controllers').controller('indexController', function($r
         self.copayers = walletStatus.wallet.copayers;
         self.preferences = walletStatus.preferences;
         self.setBalance(walletStatus.balance);
-		walletStatus.balance.byAddress.forEach(function(ba) {
-			coloredCoinsService.getAssets(ba.address, function(assets) {
-				self.assets = assets;
-			})
-		});
+        walletStatus.balance.byAddress.forEach(function(ba) {
+          coloredCoinsService.getAssets(ba.address, function(assets) {
+            self.assets = assets;
+          })
+        });
         $rootScope.$apply();
       });
     });

@@ -722,24 +722,24 @@ angular.module('copayApp.controllers').controller('walletHomeController', functi
     }, 1);
   };
 
-	this.openAssetModal = function(asset) {
-		var ModalInstanceCtrl = function($scope, $modalInstance) {
-			$scope.asset = asset;
-			$scope.cancel = function() {
-				$modalInstance.dismiss('cancel');
-			};
-		};
-		var modalInstance = $modal.open({
-			templateUrl: 'views/modals/asset-details.html',
-			windowClass: 'full animated slideInUp',
-			controller: ModalInstanceCtrl,
-		});
+  this.openAssetModal = function(asset) {
+    var ModalInstanceCtrl = function($scope, $modalInstance) {
+      $scope.asset = asset;
+      $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+      };
+    };
+    var modalInstance = $modal.open({
+      templateUrl: 'views/modals/asset-details.html',
+      windowClass: 'full animated slideInUp',
+      controller: ModalInstanceCtrl,
+    });
 
-		modalInstance.result.finally(function() {
-			var m = angular.element(document.getElementsByClassName('reveal-modal'));
-			m.addClass('slideOutDown');
-		});
-	};
+    modalInstance.result.finally(function() {
+      var m = angular.element(document.getElementsByClassName('reveal-modal'));
+      m.addClass('slideOutDown');
+    });
+  };
 
   this.openPPModal = function(paypro) {
     var ModalInstanceCtrl = function($scope, $modalInstance) {
