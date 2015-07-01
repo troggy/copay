@@ -91,6 +91,13 @@
                 {{index.totalBalanceAlternative}} {{index.alternativeIsoCode}}
               </div>
             </div>
+
+            <div class="assets">
+                <strong class="size-24 pointer" ng-click="revealAssets ? revealAssets = false : revealAssets = true">{{ index.assets.length }} assets</strong>
+                <div ng-show="revealAssets" class="size-14" ng-if="index.assets" ng-repeat="asset in index.assets">
+                    <div>{{ asset.metadata.amount }} unit(s) of {{ asset.metadata.assetName }} by {{ asset.metadata.issuer }}</div>
+                </div>
+            </div>
           </div>
 
           <div ng-if="index.anyOnGoingProcess">
