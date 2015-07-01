@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('copayApp.controllers').controller('indexController', function($rootScope, $scope, $log, $filter, $timeout, lodash, go, profileService, configService, isCordova, rateService, storageService, gettextCatalog, gettext, amMoment) {
+angular.module('copayApp.controllers').controller('indexController', function($rootScope, $scope, $log, $filter, $timeout, lodash, go, profileService, configService, isCordova, rateService, storageService, gettextCatalog, gettext, amMoment, coloredCoinsService) {
 
   var self = this;
   self.isCordova = isCordova;
@@ -86,6 +86,7 @@ angular.module('copayApp.controllers').controller('indexController', function($r
     self.totalBalanceAlternative = null;
     self.notAuthorized = false;
     self.txHistory = [];
+	self.assets = [];
     self.txHistoryPaging = false;
     self.pendingTxProposalsCountForUs = null;
     $timeout(function() {
@@ -226,6 +227,11 @@ angular.module('copayApp.controllers').controller('indexController', function($r
         self.copayers = walletStatus.wallet.copayers;
         self.preferences = walletStatus.preferences;
         self.setBalance(walletStatus.balance);
+		walletStatus.balance.byAddress.forEach(function(ba) {
+			coloredCoinsService.getAssets(ba.address, function(assets) {
+				self.assets = assets;
+			})
+		});
         $rootScope.$apply();
       });
     });
