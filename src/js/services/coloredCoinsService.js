@@ -63,11 +63,11 @@ angular.module('copayApp.services')
 
 				var assets = [];
 				assetsInfo.forEach(function(asset) {
-					getMetadata(asset.assetId, asset.utxo, function(err, metadata) {
+					getMetadata(asset, function(err, metadata) {
 						metadata.amount = asset.amount;
 						assets.push({ asset: asset, metadata: metadata });
 						if (assetsInfo.length == assets.length) {
-							return cb(metadata);
+							return cb(assets);
 						}
 					});
 				});
