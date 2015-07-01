@@ -64,8 +64,7 @@ angular.module('copayApp.services')
 				var assets = [];
 				assetsInfo.forEach(function(asset) {
 					getMetadata(asset, function(err, metadata) {
-						metadata.amount = asset.amount;
-						assets.push({ asset: asset, metadata: metadata });
+						assets.push({ asset: asset, amount: asset.amount, metadata: metadata });
 						if (assetsInfo.length == assets.length) {
 							return cb(assets);
 						}

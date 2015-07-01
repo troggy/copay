@@ -93,10 +93,7 @@
             </div>
 
             <div class="assets">
-                <strong class="size-24 pointer" ng-click="revealAssets ? revealAssets = false : revealAssets = true">{{ index.assets.length }} assets</strong>
-                <div ng-show="revealAssets" class="size-14" ng-if="index.assets" ng-repeat="asset in index.assets">
-                    <div>{{ asset.metadata.amount }} unit(s) of {{ asset.metadata.assetName }} by {{ asset.metadata.issuer }}</div>
-                </div>
+                <strong class="size-24">{{ index.assets.length }} assets</strong>
             </div>
           </div>
 
@@ -157,6 +154,17 @@
           </span>
         </div>
       </div>
+
+
+          <div ng-if="index.assets[0]">
+              <h4 class="title m0" translate>Assets</h4>
+              <div class="last-transactions pr" ng-repeat="asset in index.assets"
+                   ng-include="'views/includes/asset.html'">
+              </div>
+          </div>
+
+
+
 
       <div ng-if="index.txps[0]">
         <div ng-show="index.requiresMultipleSignatures">
