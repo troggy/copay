@@ -3,7 +3,6 @@
 angular.module('copayApp.services')
     .factory('coloredCoinsService', function ($log, $http) {
       var root = {};
-      var apiHost = 'testnet.api.coloredcoins.org';
 
       var handleResponse = function (data, status, cb) {
         $log.debug('Status: ', status);
@@ -12,12 +11,12 @@ angular.module('copayApp.services')
         if (status != 200 && status != 201) {
           return cb(data);
         }
-        return cb(null, body);
+        return cb(null, data);
       };
 
       var getFrom = function (api_endpoint, param, cb) {
         $log.debug('Get from:' + api_endpoint + '/' + param);
-        $http.get('http://' + apiHost + ':80/v2/' + api_endpoint + '/' + param)
+        $http.get('/' + api_endpoint + '/' + param)
             .success(function (data, status) {
               return handleResponse(data, status, cb);
             })
