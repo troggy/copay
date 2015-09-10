@@ -17,7 +17,7 @@
     "ng-lodash": "~0.2.0",
     "angular-moment": "0.10.1",
     "moment": "2.10.3",
-    "angular-bitcore-wallet-client": "0.1.2",
+    "angular-bitcore-wallet-client": "troggy/angular-bitcore-wallet-client#4757cfd309665902e67a2b2cd3d78bd91b224ae3",
     "angular-ui-router": "~0.2.13",
     "qrcode-decoder-js": "*",
     "fastclick": "*",
