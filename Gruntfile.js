@@ -62,7 +62,9 @@ module.exports = function(grunt) {
           'bower_components/angular-gettext/dist/angular-gettext.js',
           'bower_components/angular-touch/angular-touch.js',
           'bower_components/angular-bitcore-wallet-client/angular-bitcore-wallet-client.js',
-          'bower_components/angular-ui-switch/angular-ui-switch.js'
+          'bower_components/angular-ui-switch/angular-ui-switch.js',
+          'bower_components/copay-colored-coins-plugin/dist/copayColoredCoins.js',
+          'bower_components/copay-colored-coins-plugin/config.js'
         ],
         dest: 'public/lib/angular.js'
       },
@@ -90,7 +92,8 @@ module.exports = function(grunt) {
           'bower_components/angular/angular-csp.css',
           'bower_components/foundation/css/foundation.css',
           'bower_components/animate.css/animate.css',
-          'bower_components/angular-ui-switch/angular-ui-switch.css'
+          'bower_components/angular-ui-switch/angular-ui-switch.css',
+          'bower_components/copay-colored-coins-plugin/css/assets.css'
         ],
         dest: 'public/css/foundation.css',
       }

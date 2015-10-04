@@ -21,7 +21,8 @@
     "angular-ui-router": "~0.2.13",
     "qrcode-decoder-js": "*",
     "fastclick": "*",
-    "angular-ui-switch": "~0.1.0"
+    "angular-ui-switch": "~0.1.0",
+    "copay-colored-coins-plugin": "Colored-Coins/Colored-coins-add-on-for-Copay#~1.2.0"
   },
   "resolutions": {
     "qrcode-generator": "0.0.1"
