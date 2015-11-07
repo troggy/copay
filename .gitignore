@@ -95,3 +95,7 @@ public/icons/*
 public/css/*
 public/lib/*
 public/js/*
+
+# IDEA project files
+.idea/
+*.iml
