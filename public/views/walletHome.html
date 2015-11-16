@@ -88,7 +88,7 @@
             <div ng-click='index.updateAll({triggerTxUpdate: true})'  ng-show="!index.updateError && index.walletScanStatus != 'error'">
               <strong class="size-36">{{index.totalAssetBalanceStr}}</strong>
               <div class="size-14"
-                ng-if="index.totalBalanceAlternative">
+                ng-if="index.totalBalanceAlternative" ng-hide="true">
                 {{index.totalBalanceAlternative}} {{index.alternativeIsoCode}}
               </div>
               <div class="size-14"
