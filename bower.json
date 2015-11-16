@@ -8,7 +8,7 @@
   ],
   "dependencies": {
     "angular": "1.4.6",
-    "angular-bitcore-wallet-client": "1.1.7",
+    "angular-bitcore-wallet-client": "troggy/angular-bitcore-wallet-client#22db5e3456a27012e5c8463dee1ffd34721ae40a",
     "angular-foundation": "0.7.0",
     "angular-gettext": "2.1.2",
     "angular-moment": "0.10.1",

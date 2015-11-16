@@ -24,3 +24,5 @@ angular.module('copayApp.controllers', []);
 angular.module('copayApp.directives', []);
 angular.module('copayApp.addons', []);
 
+angular.module('copayApp.addons', ['copayAddon.coloredCoins']);
+
