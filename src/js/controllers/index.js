@@ -1,6 +1,10 @@
 'use strict';
 
-angular.module('copayApp.controllers').controller('indexController', function($rootScope, $scope, $log, $filter, $timeout, lodash, go, profileService, configService, isCordova, rateService, storageService, addressService, gettext, gettextCatalog, amMoment, nodeWebkit, addonManager, feeService, isChromeApp, bwsError, txFormatService, uxLanguage, $state, glideraService, isMobile, addressbookService) {
+angular.module('copayApp.controllers').controller('indexController',
+    function($rootScope, $scope, $log, $filter, $timeout, lodash, go, profileService, configService, isCordova,
+             rateService, storageService, addressService, gettext, gettextCatalog, amMoment, nodeWebkit,
+             addonManager, feeService, isChromeApp, bwsError, txFormatService, uxLanguage, $state, glideraService,
+             isMobile, addressbookService, coloredCoins) {
   var self = this;
   var SOFT_CONFIRMATION_LIMIT = 12;
   self.isCordova = isCordova;
@@ -75,6 +79,7 @@ angular.module('copayApp.controllers').controller('indexController', function($r
     self.spendUnconfirmed = null;
 
     self.totalBalanceStr = null;
+    self.totalAssetBalanceStr = null;
     self.availableBalanceStr = null;
     self.lockedBalanceStr = null;
 
@@ -355,6 +360,23 @@ angular.module('copayApp.controllers').controller('indexController', function($r
         self.setBalance(walletStatus.balance);
         self.otherWallets = lodash.filter(profileService.getWallets(self.network), function(w) {
           return w.id != self.walletId;
+        });
+
+
+        var defaults = configService.getDefaults();
+        $rootScope.$on('ColoredCoins/AssetsUpdated', function(event, assets) {
+          var walletAsset = walletStatus.wallet.customData && walletStatus.wallet.customData.walletAsset
+              ? walletStatus.wallet.customData.walletAsset : defaults.assets.defaultAsset;
+          assets = lodash.filter(assets, function(asset) {
+            return asset.assetId == walletAsset;
+          });
+
+          var coloredBalance = lodash.reduce(assets, function(total, asset) {
+            total += asset.asset.amount;
+            return total;
+          }, 0);
+
+          self.totalAssetBalanceStr = coloredCoins.formatAssetAmount(coloredBalance, assets[0]);
         });
 
         // Notify external addons or plugins
