@@ -19,7 +19,7 @@
 
     <h4 class="title m0" translate>Assets</h4>
     <ul class="no-bullet m0 ">
-        <li ng-repeat="asset in walletInfo.assets" ng-click="walletInfo.save(unit)">
+        <li ng-repeat="asset in walletInfo.assets" ng-click="walletInfo.setWalletAsset(asset)">
             <div class="right">
                 <span class="text-gray">{{ asset.balanceStr }}</span>
                 <div class="check-icon-place" ng-class="{ 'fi-check' : walletInfo.walletAsset == asset.assetId }"></div>

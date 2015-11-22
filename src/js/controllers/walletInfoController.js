@@ -37,4 +37,8 @@ angular.module('copayApp.controllers').controller('walletInfoController',
   });
 
   this.walletAsset = assetsService.walletAsset();
+
+  this.setWalletAsset = function(asset) {
+    assetsService.setWalletAsset(asset);
+  };
 });
