@@ -508,7 +508,18 @@ angular
           }
         },
         needProfile: false
-      });
+      })
+        .state('walletInfo', {
+          url: '/walletInfo',
+          templateUrl: 'views/walletInfo.html',
+          walletShouldBeComplete: true,
+          needProfile: true,
+          views: {
+            'main': {
+              templateUrl: 'views/walletInfo.html'
+            }
+          }
+        });
   })
   .run(function($rootScope, $state, $log, uriHandler, isCordova, profileService, $timeout, nodeWebkit, uxLanguage, animationService) {
     FastClick.attach(document.body);

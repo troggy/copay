@@ -1430,6 +1430,13 @@ input.ng-invalid-match, input.ng-invalid-match:focus {
   border-radius: 3px;
 }
 
+.check-icon-place {
+    display: inline-block;
+    font-size: 14px;
+    width: 14px;
+    margin-left: 15px;
+}
+
 /*/////////////////// SPINNER ////////////////////*/
 
 #history .spinner, #receive .spinner {
