@@ -85,7 +85,7 @@
               <br><span translate>Tap to retry</span>
             </div>
 
-            <div ng-click='index.updateAll({triggerTxUpdate: true})'  ng-show="!index.updateError && index.walletScanStatus != 'error'">
+            <div ng-click='index.updateAll({triggerTxUpdate: true})'  ng-show="index.totalAssetBalanceStr && !index.updateError && index.walletScanStatus != 'error'">
               <strong class="size-36">{{index.totalAssetBalanceStr}}</strong>
               <div class="size-14"
                 ng-if="index.totalBalanceAlternative" ng-hide="true">
@@ -96,7 +96,6 @@
                 <span translate>Pending Confirmation</span>:
                 {{index.pendingAmountStr}}
               </div>
-
             </div>
           </div>
 

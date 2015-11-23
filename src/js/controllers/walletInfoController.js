@@ -23,7 +23,11 @@ angular.module('copayApp.controllers').controller('walletInfoController',
 
   var setAssets = initAssets.bind(this);
 
-  setAssets(coloredCoins.assets || []);
+  if (!coloredCoins.onGoingProcess) {
+    setAssets(coloredCoins.assets || []);
+  } else {
+    this.assets = null;
+  }
 
   var disableAssetListener = $rootScope.$on('ColoredCoins/AssetsUpdated', function (event, assets) {
     setAssets(assets);

@@ -563,6 +563,7 @@ ul.manage li {
 .vt {vertical-align: top;}
 .ma { margin: 0 auto;}
 .tu {text-transform: uppercase;}
+.t-33 { top: -33px; }
 
 .line {
   border-top: 1px solid #F8F8FB;
@@ -1362,6 +1363,7 @@ input.ng-invalid-match, input.ng-invalid-match:focus {
 }
 
 .preferences-icon {
+  background-color: white !important;
   width: auto;
   height: 40px;
 }
