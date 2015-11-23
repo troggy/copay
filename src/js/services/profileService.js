@@ -511,9 +511,6 @@ angular.module('copayApp.services')
       configService.get(function(err) {
         bwcService.setBaseUrl(defaults.bws.url);
         bwcService.setTransports(['polling']);
-        opts.customData = {
-          walletAsset: defaults.assets.defaultAsset
-        };
         root._createNewProfile(opts, function(err, p) {
           if (err) return cb(err);
 

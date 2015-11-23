@@ -1,8 +1,12 @@
 'use strict';
 
 angular.module('copayApp.controllers').controller('walletInfoController',
-    function ($scope, $rootScope, $timeout, profileService, configService, lodash, coloredCoins, assetsService) {
+    function ($scope, $rootScope, $timeout, profileService, configService, lodash, coloredCoins, walletService) {
   function initAssets(assets) {
+    if (!assets) {
+      this.assets = [];
+      return;
+    }
     assets = assets.reduce(function(map, asset) {
       map[asset.assetId] = map[asset.assetId] || { amount: 0, assetId: asset.assetId, asset: asset };
       map[asset.assetId].amount += asset.asset.amount;
@@ -16,7 +20,13 @@ angular.module('copayApp.controllers').controller('walletInfoController',
             assetId: asset.assetId,
             balanceStr: coloredCoins.formatAssetAmount(asset.amount, asset.asset)
           };
-        }).sort(function(a1, a2) {
+        })
+        .concat([{
+          assetName: 'Bitcoin',
+          assetId: 'bitcoin',
+          balanceStr: walletService.btcBalance
+        }])
+        .sort(function(a1, a2) {
           return a1.assetName > a2.assetName;
         });
   }
@@ -24,7 +34,7 @@ angular.module('copayApp.controllers').controller('walletInfoController',
   var setAssets = initAssets.bind(this);
 
   if (!coloredCoins.onGoingProcess) {
-    setAssets(coloredCoins.assets || []);
+    setAssets(coloredCoins.assets);
   } else {
     this.assets = null;
   }
@@ -40,9 +50,9 @@ angular.module('copayApp.controllers').controller('walletInfoController',
     disableAssetListener();
   });
 
-  this.walletAsset = assetsService.walletAsset();
+  this.walletAsset = walletService.updateWalletAsset();
 
   this.setWalletAsset = function(asset) {
-    assetsService.setWalletAsset(asset);
+    walletService.setWalletAsset(asset);
   };
 });
