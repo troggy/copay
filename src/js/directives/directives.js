@@ -312,9 +312,9 @@ angular.module('copayApp.directives')
     }
   })
   .directive('availableBalance', function() {
-    return {
-      restrict: 'E',
-      replace: true,
-      templateUrl: 'views/includes/available-balance.html'
-    }
+      return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: 'views/includes/available-balance.html'
+      }
   });

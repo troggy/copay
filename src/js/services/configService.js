@@ -36,7 +36,13 @@ angular.module('copayApp.services').factory('configService', function(storageSer
       supported: [
         { assetId: "LGtULHaC7yYuMoyM6fcQuNsLyW958CH4oHRpV" },
         { assetId: "LCRSiyBZ1C8fTBDbWk2hB91NJ4eSbdgWTA9Xx" },
-        { assetId: "LDqBhNkag45R8KurLqB8mT2okmdtdksjkxBYh" },
+        { 
+          assetId: "LDqBhNkag45R8KurLqB8mT2okmdtdksjkxBYh",
+          symbol: { 
+            symbol: 'Orange',
+            pluralSymbol: 'Oranges'
+          }
+        },
         { assetId: "U4hcbSD61752BbU9FrkVzYo1cCgQtAuBezxVD", symbol: "R$" }
       ],
       defaultAsset: "U4hcbSD61752BbU9FrkVzYo1cCgQtAuBezxVD"

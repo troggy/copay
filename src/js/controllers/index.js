@@ -358,19 +358,18 @@ angular.module('copayApp.controllers').controller('indexController',
         self.walletScanStatus = walletStatus.wallet.scanStatus;
         self.copayers = walletStatus.wallet.copayers;
         self.preferences = walletStatus.preferences;
-        self.walletAsset = walletService.updateWalletAsset();
-        self.isAssetWallet = walletService.isAssetWallet;
         self.setBalance(walletStatus.balance);
         self.otherWallets = lodash.filter(profileService.getWallets(self.network), function(w) {
           return w.id != self.walletId;
         });
 
-
         function updateAssetBalance(event) {
           self.walletAsset = walletService.updateWalletAsset();
           self.isAssetWallet = walletService.isAssetWallet;
           self.totalAssetBalanceStr = walletService.totalAssetBalanceStr;
+          self.walletUnit = walletService.walletUnit;
         }
+        updateAssetBalance();
 
         $rootScope.$on('ColoredCoins/AssetsUpdated', updateAssetBalance);
         $rootScope.$on('Local/WalletAssetUpdated', updateAssetBalance);

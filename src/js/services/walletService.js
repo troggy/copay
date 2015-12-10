@@ -11,6 +11,7 @@ angular.module('copayApp.services').factory('walletService', function(profileSer
   var updateAssetBalance = function() {
     if (!root.walletAsset) {
       root.totalAssetBalanceStr = null;
+      root.walletUnit = null;
       return;
     }
 
@@ -22,6 +23,8 @@ angular.module('copayApp.services').factory('walletService', function(profileSer
       total += asset.asset.amount;
       return total;
     }, 0);
+
+    root.walletUnit = coloredCoins.getAssetSymbol(root.walletAsset, assets[0]);
 
     root.totalAssetBalanceStr = coloredCoins.formatAssetAmount(coloredBalance, assets[0]);
   };
