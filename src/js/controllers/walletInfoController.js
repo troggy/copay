@@ -7,18 +7,13 @@ angular.module('copayApp.controllers').controller('walletInfoController',
       this.assets = [];
       return;
     }
-    assets = assets.reduce(function(map, asset) {
-      map[asset.assetId] = map[asset.assetId] || { amount: 0, assetId: asset.assetId, asset: asset };
-      map[asset.assetId].amount += asset.asset.amount;
-      return map;
-    }, {});
 
     this.assets = lodash.values(assets)
         .map(function(asset) {
           return {
-            assetName: asset.asset.metadata.assetName,
+            assetName: asset.metadata.assetName,
             assetId: asset.assetId,
-            balanceStr: coloredCoins.formatAssetAmount(asset.amount, asset.asset)
+            balanceStr: coloredCoins.formatAssetAmount(asset.amount, asset.asset, walletService.walletUnit)
           };
         })
         .concat([{

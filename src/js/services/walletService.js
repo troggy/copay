@@ -18,15 +18,14 @@ angular.module('copayApp.services').factory('walletService', function(profileSer
     var assets = lodash.filter(coloredCoins.assets, function(asset) {
       return asset.assetId == root.walletAsset;
     });
-
-    var coloredBalance = lodash.reduce(assets, function(total, asset) {
-      total += asset.asset.amount;
-      return total;
-    }, 0);
+    
+    if (assets.length == 0) {
+      return;
+    }
 
     root.walletUnit = coloredCoins.getAssetSymbol(root.walletAsset, assets[0]);
 
-    root.totalAssetBalanceStr = coloredCoins.formatAssetAmount(coloredBalance, assets[0]);
+    root.totalAssetBalanceStr = coloredCoins.formatAssetAmount(assets[0].amount, assets[0], root.walletUnit);
   };
 
   root.updateWalletAsset = function() {
