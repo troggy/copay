@@ -460,7 +460,7 @@
                     <i class="icon-checkmark-circle size-14"></i>
                   </small>
                 </div>
-                <div ng-if="!home.canShowAlternative()">
+                <div ng-if="!home.canShowAlternative() && !index.isAssetWallet">
                   <label for="amount">
                     <span translate>Amount</span>
                   </label>
@@ -470,7 +470,16 @@
                     <a class="postfix button" ng-style="{'background-color':index.backgroundColor}" ng-click="home.showAlternative()">{{home.unitName}}</a>
                   </div>
                 </div>
-                <div ng-if="home.canShowAlternative()">
+                <div ng-if="index.isAssetWallet">
+                  <label for="amount">
+                    <span translate>Amount</span>
+                  </label>
+                  <div class="input">
+                    <input type="number" id="amount" ng-disabled="home.blockUx || home.lockAmount" name="amount" ng-attr-placeholder="{{'Amount in'|translate}} {{index.walletUnit.pluralSymbol}}" ng-minlength="0.00000001" ng-maxlength="10000000000" ng-model="_amount" valid-amount required autocomplete="off" ng-focus="home.formFocus('amount')" ng-blur="home.formFocus(false)">
+                    <a class="postfix button auto-width" ng-style="{'background-color':index.backgroundColor}">{{index.walletUnit.pluralSymbol}}</a>
+                  </div>
+                </div>
+                <div ng-if="home.canShowAlternative() && !index.isAssetWallet">
                   <label for="alternative"><span translate>Amount</span> [{{ home.alternativeIsoCode }}]
                   </label>
                   <div class="input">

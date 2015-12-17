@@ -975,6 +975,11 @@ a.button.postfix {
   color: #fff;
 }
 
+.auto-width {
+  width: auto !important;
+  padding: 0 3px !important;
+}
+
 .pointer {
   cursor: pointer;
 }
