@@ -13,7 +13,7 @@ angular.module('copayApp.controllers').controller('walletInfoController',
           return {
             assetName: asset.metadata.assetName,
             assetId: asset.assetId,
-            balanceStr: coloredCoins.formatAssetAmount(asset.amount, asset.asset, walletService.walletUnit)
+            balanceStr: coloredCoins.formatAssetAmount(asset.amount, asset)
           };
         })
         .concat([{
