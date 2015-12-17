@@ -233,6 +233,7 @@ _:-ms-fullscreen, :root .main {
   font-weight: 700;
   text-align: center;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .walletHome .wallet-info {
