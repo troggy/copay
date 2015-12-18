@@ -7,6 +7,7 @@ angular.module('copayApp.services').factory('walletService', function(profileSer
   root.walletAsset = null;
   root.totalAssetBalanceStr = null;
   root.isAssetWallet = null;
+  root.asset = null;
 
   var updateAssetBalance = function() {
     if (!root.walletAsset) {
@@ -22,10 +23,12 @@ angular.module('copayApp.services').factory('walletService', function(profileSer
     if (assets.length == 0) {
       return;
     }
+    
+    root.asset = assets[0];
 
-    root.walletUnit = coloredCoins.getAssetSymbol(root.walletAsset, assets[0]);
+    root.walletUnit = coloredCoins.getAssetSymbol(root.walletAsset, root.asset);
 
-    root.totalAssetBalanceStr = coloredCoins.formatAssetAmount(assets[0].amount, assets[0], root.walletUnit);
+    root.totalAssetBalanceStr = coloredCoins.formatAssetAmount(root.asset.amount, root.asset, root.walletUnit);
   };
 
   root.updateWalletAsset = function() {
@@ -35,7 +38,12 @@ angular.module('copayApp.services').factory('walletService', function(profileSer
     root.walletAsset = config.assetFor[walletId] || configService.getDefaults().assets.defaultAsset;
     root.isAssetWallet = root.walletAsset !== 'bitcoin';
     updateAssetBalance();
-    return root.walletAsset;
+    return { 
+      assetId: root.walletAsset,
+      isAsset: root.isAssetWallet,
+      unit: root.walletUnit,
+      asset: root.asset
+    };
   };
 
   root.setWalletAsset = function(asset) {

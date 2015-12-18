@@ -1,6 +1,11 @@
 'use strict';
 
-angular.module('copayApp.controllers').controller('walletHomeController', function($scope, $rootScope, $timeout, $filter, $modal, $log, notification, txStatus, isCordova, profileService, lodash, configService, rateService, storageService, bitcore, isChromeApp, gettext, gettextCatalog, nodeWebkit, addressService, ledger, bwsError, confirmDialog, txFormatService, animationService, addressbookService, go) {
+angular.module('copayApp.controllers').controller('walletHomeController',
+ function($scope, $rootScope, $timeout, $filter, $modal, $log, notification,
+          txStatus, isCordova, profileService, lodash, configService, rateService,
+          storageService, bitcore, isChromeApp, gettext, gettextCatalog, nodeWebkit,
+          addressService, ledger, bwsError, confirmDialog, txFormatService,
+          animationService, addressbookService, go, coloredCoins) {
 
   var self = this;
   $rootScope.hideMenuBar = false;
@@ -826,7 +831,7 @@ angular.module('copayApp.controllers').controller('walletHomeController', functi
     };
   };
 
-  this.submitForm = function(currentFeePerKb) {
+  this.submitForm = function(currentFeePerKb, walletAsset) {
     var fc = profileService.focusedClient;
     var unitToSat = this.unitToSatoshi;
     var currentSpendUnconfirmed = configWallet.spendUnconfirmed;
@@ -865,7 +870,11 @@ angular.module('copayApp.controllers').controller('walletHomeController', functi
       var address, amount;
 
       address = form.address.$modelValue;
-      amount = parseInt((form.amount.$modelValue * unitToSat).toFixed(0));
+      if (walletAsset.isAsset) {
+        amount = form.amount.$modelValue;
+      } else {
+        amount = parseInt((form.amount.$modelValue * unitToSat).toFixed(0));
+      }
 
       requestTouchid(function(err) {
         if (err) {
@@ -878,14 +887,7 @@ angular.module('copayApp.controllers').controller('walletHomeController', functi
           return;
         }
 
-        fc.sendTxProposal({
-          toAddress: address,
-          amount: amount,
-          message: comment,
-          payProUrl: paypro ? paypro.url : null,
-          feePerKb: currentFeePerKb,
-          excludeUnconfirmedUtxos: currentSpendUnconfirmed ? false : true
-        }, function(err, txp) {
+        var signAndBroadcast = function(err, txp) {
           if (err) {
             self.setOngoingProcess();
             profileService.lockFC();
@@ -913,7 +915,23 @@ angular.module('copayApp.controllers').controller('walletHomeController', functi
               }, 1);
             } else go.walletHome();
           });
-        });
+        };
+        
+        if (walletAsset.isAsset) {
+          coloredCoins.sendTransferTxProposal(
+            amount, address, walletAsset.asset, signAndBroadcast
+          );
+        } else {
+          fc.sendTxProposal({
+            toAddress: address,
+            amount: amount,
+            message: comment,
+            payProUrl: paypro ? paypro.url : null,
+            feePerKb: currentFeePerKb,
+            excludeUnconfirmedUtxos: currentSpendUnconfirmed ? false : true
+          }, signAndBroadcast); 
+        }
+
       });
     }, 100);
   };
