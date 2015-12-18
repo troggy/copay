@@ -5,35 +5,16 @@
 
 
 <div class="content preferences" ng-controller="walletInfoController as walletInfo">
-    <h4 class="title m0" translate>Copayers</h4>
-    <ul class="no-bullet m0">
-        <li ng-repeat="copayer in index.copayers">
-            <span class="size-14" ng-show="copayer.id == index.copayerId">
-              <i class="icon-contact size-24 m10r"></i> {{copayer.name}} ({{'Me'|translate}}) <i class="fi-check m5 right"></i>
-            </span>
-            <span class="size-14 text-gray" ng-show="copayer.id != index.copayerId">
-              <i class="icon-contact size-24 m10r"></i> {{copayer.name}}<i class="fi-check m5 right"></i>
-            </span>
-        </li>
-    </ul>
-
-    <h4 class="title m0" translate>Assets</h4>
+    <h4 class="title m0" translate>Asset</h4>
     <ul class="no-bullet m0 ">
         <li ng-repeat="asset in walletInfo.assets" ng-click="walletInfo.setWalletAsset(asset)">
             <div class="right">
                 <span class="text-gray">{{ asset.balanceStr }}</span>
-                <div class="check-icon-place" ng-class="{ 'fi-check' : walletInfo.walletAsset == asset.assetId }"></div>
+                <div class="check-icon-place" ng-class="{ 'fi-check' : walletInfo.assetId == asset.assetId }"></div>
             </div>
             <div translate>{{ asset.assetName }}</div>
         </li>
     </ul>
-
-    <div class="text-center m20t">
-        <a ng-click="$root.go('preferences')" class="button outline round light-gray tiny preferences-icon m0">
-            <i class="fi-widget size-18 vm"></i>
-            <span translate>Advanced</span>
-        </a>
-    </div>
 </div>
 <div class="extra-margin-bottom"></div>
 

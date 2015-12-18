@@ -2,7 +2,11 @@
 
 angular.module('copayApp.controllers').controller('walletInfoController',
     function ($scope, $rootScope, $timeout, profileService, configService, lodash, coloredCoins, walletService) {
+  
+  var self = this;
+
   function initAssets(assets) {
+    
     if (!assets) {
       this.assets = [];
       return;
@@ -29,6 +33,7 @@ angular.module('copayApp.controllers').controller('walletInfoController',
   var setAssets = initAssets.bind(this);
 
   if (!coloredCoins.onGoingProcess) {
+    this.assetId = walletService.walletAsset;
     setAssets(coloredCoins.assets);
   } else {
     this.assets = null;
@@ -36,6 +41,10 @@ angular.module('copayApp.controllers').controller('walletInfoController',
 
   var disableAssetListener = $rootScope.$on('ColoredCoins/AssetsUpdated', function (event, assets) {
     setAssets(assets);
+    if (!walletService.assetId) {
+      walletService.updateWalletAsset();
+    };
+    self.assetId = walletService.walletAsset;
     $timeout(function() {
       $rootScope.$digest();
     });
@@ -44,8 +53,6 @@ angular.module('copayApp.controllers').controller('walletInfoController',
   $scope.$on('$destroy', function () {
     disableAssetListener();
   });
-
-  this.walletAsset = walletService.updateWalletAsset();
 
   this.setWalletAsset = function(asset) {
     walletService.setWalletAsset(asset);
