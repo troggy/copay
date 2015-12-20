@@ -156,7 +156,7 @@
         </div>
       </div>
 
-      <div ng-if="index.txps[0]">
+      <div ng-if="index.txps[0] && index.asset.assetId">
         <h4 ng-show="index.requiresMultipleSignatures" class="title m0" translate>Payment Proposals</h4>
         <h4 ng-show="!index.requiresMultipleSignatures" class="title m0" translate>Unsent transactions</h4>
         <div class="last-transactions pr" ng-repeat="tx in index.txps | filter: index.filterProposals">
@@ -199,7 +199,7 @@
         </div>
       </div>
 
-      <div ng-show="index.txHistory[0]">
+      <div ng-show="index.txHistory[0] && index.asset.assetId">
         <h4 class="title m0">
           <span translate>Activity</span>
         </h4>
