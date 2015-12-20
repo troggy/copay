@@ -5,7 +5,7 @@ angular.module('copayApp.controllers').controller('walletHomeController',
           txStatus, isCordova, profileService, lodash, configService, rateService,
           storageService, bitcore, isChromeApp, gettext, gettextCatalog, nodeWebkit,
           addressService, ledger, bwsError, confirmDialog, txFormatService,
-          animationService, addressbookService, go, coloredCoins) {
+          animationService, addressbookService, go, coloredCoins, addonManager) {
 
   var self = this;
   $rootScope.hideMenuBar = false;
@@ -917,20 +917,21 @@ angular.module('copayApp.controllers').controller('walletHomeController',
             } else go.walletHome();
           });
         };
-        
         if (walletAsset.isAsset) {
           coloredCoins.sendTransferTxProposal(
             amount, address, walletAsset.asset, signAndBroadcast
           );
         } else {
-          fc.sendTxProposal({
+          var txOpts = {
             toAddress: address,
             amount: amount,
             message: comment,
             payProUrl: paypro ? paypro.url : null,
             feePerKb: currentFeePerKb,
             excludeUnconfirmedUtxos: currentSpendUnconfirmed ? false : true
-          }, signAndBroadcast); 
+          };
+          addonManager.processCreateTxOpts(txOpts);
+          fc.sendTxProposal(txOpts, signAndBroadcast); 
         }
 
       });
