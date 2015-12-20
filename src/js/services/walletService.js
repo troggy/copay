@@ -39,7 +39,7 @@ angular.module('copayApp.services').factory('walletService',
        unit: unit,
        asset: asset
      };
-     $rootScope.$emit("Local/WalletAssetUpdated")
+     $rootScope.$emit("Local/WalletAssetUpdated", root.walletAsset);
      return root.walletAsset;
   };
 

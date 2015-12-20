@@ -164,11 +164,16 @@
         </div>
 
         <div class="text-gray text-center size-12 p10t"
-          ng-show="index.lockedBalanceSat">
+          ng-show="index.lockedBalanceSat && !index.asset.isAsset">
           <span translate>Total Locked Balance</span>:
           <b>{{index.lockedBalanceStr}} </b>
           <span> {{index.lockedBalanceAlternative}}
             {{index.alternativeIsoCode}} </span>
+        </div>
+        <div class="text-gray text-center size-12 p10t"
+            ng-show="index.asset.asset.lockedBalanceStr && index.asset.isAsset">
+          <span translate>Total Locked Assets</span>:
+          <b>{{index.asset.asset.lockedBalanceStr}} </b>
         </div>
       </div>
 
