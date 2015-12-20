@@ -1,52 +1,65 @@
 'use strict';
 
-angular.module('copayApp.services').factory('walletService', function(profileService, coloredCoins, lodash, configService, $log, $rootScope, go) {
-  var root = {};
+angular.module('copayApp.services').factory('walletService',
+  function(profileService, coloredCoins, lodash, configService, $q, $log, $rootScope, go) {
+  
+  var root = {},
+      self = this,
+      selectedAssetId;
 
   root.btcBalance = null;
-  root.walletAsset = null;
-  root.totalAssetBalanceStr = null;
-  root.isAssetWallet = null;
-  root.asset = null;
+  root.walletAsset = {
+    isAsset: false
+  };
+  
+  $rootScope.$on('ColoredCoins/AssetsUpdated', function() {
+    root.updateWalletAsset();
+  });
 
   var updateAssetBalance = function() {
-    if (!root.walletAsset) {
-      root.totalAssetBalanceStr = null;
-      root.walletUnit = null;
-      return;
-    }
-
-    var assets = lodash.filter(coloredCoins.assets, function(asset) {
-      return asset.assetId == root.walletAsset;
-    });
+    if (!self.selectedAssetId) { return {}; }
+    var isAsset = self.selectedAssetId !== 'bitcoin',
+        asset, unit;
     
-    if (assets.length == 0) {
-      return;
-    }
-    
-    root.asset = assets[0];
+    if (isAsset) {
+      var assets = lodash.filter(coloredCoins.assets, function(asset) {
+         return asset.assetId == self.selectedAssetId;
+       });
+       
+       if (assets.length == 0) { return {}; }
+       
+       asset = assets[0];
+       unit = coloredCoins.getAssetSymbol(self.selectedAssetId, asset);
+     }
+     
+     root.walletAsset = { 
+       assetId: self.selectedAssetId,
+       isAsset: isAsset,
+       balanceStr: isAsset ? asset.balanceStr : root.btcBalance,
+       unit: unit,
+       asset: asset
+     };
+     $rootScope.$emit("Local/WalletAssetUpdated")
+     return root.walletAsset;
+  };
 
-    root.walletUnit = coloredCoins.getAssetSymbol(root.walletAsset, root.asset);
-
-    root.totalAssetBalanceStr = coloredCoins.formatAssetAmount(root.asset.amount, root.asset, root.walletUnit);
+  root.setBtcBalance = function(btcBalance) {
+    root.btcBalance = btcBalance;
   };
 
   root.updateWalletAsset = function() {
-    var walletId = profileService.focusedClient.credentials.walletId,
-        config = configService.getSync();
-    config.assetFor = config.assetFor || {};
-    root.walletAsset = config.assetFor[walletId] || configService.getDefaults().assets.defaultAsset;
-    root.isAssetWallet = root.walletAsset !== 'bitcoin';
-    updateAssetBalance();
-    return { 
-      assetId: root.walletAsset,
-      isAsset: root.isAssetWallet,
-      unit: root.walletUnit,
-      asset: root.asset
-    };
+    if (!self.selectedAssetId) {
+      var walletId = profileService.focusedClient.credentials.walletId,
+          config = configService.getSync();
+          
+      config.assetFor = config.assetFor || {};
+      self.selectedAssetId = config.assetFor[walletId] || configService.getDefaults().assets.defaultAsset;
+    }
+    
+    return updateAssetBalance();
   };
 
-  root.setWalletAsset = function(asset) {
+  root.setSelectedAsset = function(asset) {
     var walletId = profileService.focusedClient.credentials.walletId;
 
     var opts = {
@@ -54,12 +67,11 @@ angular.module('copayApp.services').factory('walletService', function(profileSer
       }
     };
     opts.assetFor[walletId] = asset.assetId;
-    root.walletAsset = asset.assetId;
-    updateAssetBalance();
+    self.selectedAssetId = asset.assetId;
 
     configService.set(opts, function(err) {
       if (err) $log.warn(err);
-      $rootScope.$emit('Local/WalletAssetUpdated');
+      updateAssetBalance();
       go.walletHome();
     });
   };

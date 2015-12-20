@@ -283,7 +283,7 @@ angular.module('copayApp.controllers').controller('walletHomeController',
       $scope.loading = null;
       $scope.color = fc.backgroundColor;
       $scope.isShared = fc.credentials.n > 1;
-      $scope.isAsset = walletService.isAssetWallet;
+      $scope.isAsset = walletService.walletAsset.isAsset;
 
       // ToDo: use tx.customData instead of tx.message
       if (tx.message === 'Glidera transaction' && isGlidera) {

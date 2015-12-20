@@ -17,7 +17,7 @@ angular.module('copayApp.controllers').controller('walletInfoController',
           return {
             assetName: asset.metadata.assetName,
             assetId: asset.assetId,
-            balanceStr: coloredCoins.formatAssetAmount(asset.amount, asset)
+            balanceStr: asset.balanceStr
           };
         })
         .concat([{
@@ -32,19 +32,14 @@ angular.module('copayApp.controllers').controller('walletInfoController',
 
   var setAssets = initAssets.bind(this);
 
-  if (!coloredCoins.onGoingProcess) {
-    this.assetId = walletService.walletAsset;
-    setAssets(coloredCoins.assets);
-  } else {
-    this.assets = null;
-  }
-
-  var disableAssetListener = $rootScope.$on('ColoredCoins/AssetsUpdated', function (event, assets) {
+  coloredCoins.getAssets().then(function(assets) {
+    self.assetId = walletService.walletAsset.assetId;
     setAssets(assets);
-    if (!walletService.assetId) {
-      walletService.updateWalletAsset();
-    };
-    self.assetId = walletService.walletAsset;
+  });
+
+  var disableAssetListener = $rootScope.$on('Local/WalletAssetUpdated', function (event, walletAsset) {
+    setAssets(coloredCoins.assets);
+    self.assetId = walletService.walletAsset.assetId;
     $timeout(function() {
       $rootScope.$digest();
     });
@@ -54,7 +49,7 @@ angular.module('copayApp.controllers').controller('walletInfoController',
     disableAssetListener();
   });
 
-  this.setWalletAsset = function(asset) {
-    walletService.setWalletAsset(asset);
+  this.setSelectedAsset = function(asset) {
+    walletService.setSelectedAsset(asset);
   };
 });

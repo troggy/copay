@@ -85,9 +85,9 @@
               <br><span translate>Tap to retry</span>
             </div>
 
-            <div ng-click='index.updateAll({triggerTxUpdate: true})'  ng-show="index.totalAssetBalanceStr && !index.updateError && index.walletScanStatus != 'error'">
-              <strong class="size-36" ng-show="index.totalAssetBalanceStr && index.walletAsset.isAsset">{{index.totalAssetBalanceStr}}</strong>
-              <strong class="size-36" ng-show="index.totalAssetBalanceStr && !index.walletAsset.isAsset">{{index.totalBalanceStr}}</strong>
+            <div ng-click='index.updateAll({triggerTxUpdate: true})'  ng-show="index.asset.balanceStr && !index.updateError && index.walletScanStatus != 'error'">
+              <strong class="size-36" ng-show="index.asset && index.asset.isAsset">{{index.asset.balanceStr}}</strong>
+              <strong class="size-36" ng-show="index.asset && !index.asset.isAsset">{{index.totalBalanceStr}}</strong>
               <div class="size-14"
                 ng-if="index.totalBalanceAlternative" ng-hide="true">
                 {{index.totalBalanceAlternative}} {{index.alternativeIsoCode}}
@@ -159,7 +159,7 @@
       <div ng-if="index.txps[0]">
         <h4 ng-show="index.requiresMultipleSignatures" class="title m0" translate>Payment Proposals</h4>
         <h4 ng-show="!index.requiresMultipleSignatures" class="title m0" translate>Unsent transactions</h4>
-        <div class="last-transactions pr" ng-repeat="tx in index.txps">
+        <div class="last-transactions pr" ng-repeat="tx in index.txps | filter: index.filterProposals">
           <div ng-include="index.txTemplateUrl"></div>
         </div>
 
@@ -220,7 +220,7 @@
          </div>
         </div>
         
-        <div ng-repeat="btx in index.txHistory"
+        <div ng-repeat="btx in index.txHistory | filter: index.filterHistory"
           ng-click="home.openTxModal(btx)"
           class="row collapse last-transactions-content">
           <div class="large-6 medium-6 small-6 columns size-14">
@@ -252,9 +252,13 @@
               <span  class="size-12" ng-if="btx.action == 'invalid'" translate>
               (possible double spend)
               </span>
-              <span  ng-if="btx.action != 'invalid'">
+              <span  ng-if="btx.action != 'invalid'" ng-hide="btx.isColored">
               {{btx.amountStr}}
               </span>
+              <span  ng-if="btx.action != 'invalid'" ng-show="btx.isColored">
+              {{btx.assetAmountStr}}
+              </span>
+
             </span>
             <div class="size-12 text-gray">
               <time ng-if="btx.time">{{btx.time * 1000 | amTimeAgo}}</time>
@@ -404,7 +408,7 @@
       </div>
       <div class="row m20t">
         <div class="large-12 large-centered columns"> 
-          <form name="sendForm" ng-submit="home.submitForm(index.feeRateToSendMax, index.walletAsset)" ng-disabled="home.blockUx || home.onGoingProcess" novalidate> 
+          <form name="sendForm" ng-submit="home.submitForm(index.feeRateToSendMax, index.asset)" ng-disabled="home.blockUx || home.onGoingProcess" novalidate> 
 
             <div ng-hide="home._paypro || home.hideAddress">
               <div class="row collapse">
@@ -460,7 +464,7 @@
                     <i class="icon-checkmark-circle size-14"></i>
                   </small>
                 </div>
-                <div ng-if="!home.canShowAlternative() && !index.walletAsset.isAsset">
+                <div ng-if="!home.canShowAlternative() && !index.asset.isAsset">
                   <label for="amount">
                     <span translate>Amount</span>
                   </label>
@@ -470,16 +474,16 @@
                     <a class="postfix button" ng-style="{'background-color':index.backgroundColor}" ng-click="home.showAlternative()">{{home.unitName}}</a>
                   </div>
                 </div>
-                <div ng-if="index.walletAsset.isAsset">
+                <div ng-if="index.asset.isAsset">
                   <label for="amount">
                     <span translate>Amount</span>
                   </label>
                   <div class="input">
-                    <input type="number" id="amount" ng-disabled="home.blockUx || home.lockAmount" name="amount" ng-attr-placeholder="{{'Amount in'|translate}} {{index.walletAsset.unit.pluralSymbol}}" ng-minlength="0.00000001" ng-maxlength="10000000000" ng-model="_amount" valid-amount required autocomplete="off" ng-focus="home.formFocus('amount')" ng-blur="home.formFocus(false)">
-                    <a class="postfix button auto-width" ng-style="{'background-color':index.backgroundColor}">{{index.walletAsset.unit.pluralSymbol}}</a>
+                    <input type="number" id="amount" ng-disabled="home.blockUx || home.lockAmount" name="amount" ng-attr-placeholder="{{'Amount in'|translate}} {{index.asset.unit.pluralSymbol}}" ng-minlength="0.00000001" ng-maxlength="10000000000" ng-model="_amount" valid-amount required autocomplete="off" ng-focus="home.formFocus('amount')" ng-blur="home.formFocus(false)">
+                    <a class="postfix button auto-width" ng-style="{'background-color':index.backgroundColor}">{{index.asset.unit.pluralSymbol}}</a>
                   </div>
                 </div>
-                <div ng-if="home.canShowAlternative() && !index.walletAsset.isAsset">
+                <div ng-if="home.canShowAlternative() && !index.asset.isAsset">
                   <label for="alternative"><span translate>Amount</span> [{{ home.alternativeIsoCode }}]
                   </label>
                   <div class="input">
