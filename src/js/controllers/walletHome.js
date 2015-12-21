@@ -76,10 +76,6 @@ angular.module('copayApp.controllers').controller('walletHomeController',
     };
   });
 
-  var disableOngoingProcessListener = $rootScope.$on('Addon/OngoingProcess', function(e, name) {
-    self.setOngoingProcess(name);
-  });
-
   $scope.$on('$destroy', function() {
     disableAddrListener();
     disableScannerListener();
@@ -87,7 +83,6 @@ angular.module('copayApp.controllers').controller('walletHomeController',
     disableTabListener();
     disableFocusListener();
     disableResumeListener();
-    disableOngoingProcessListener();
     $rootScope.hideMenuBar = false;
   });
 

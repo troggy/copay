@@ -58,11 +58,15 @@ angular.module('copayApp.controllers').controller('indexController',
       return isOn;
     });
     // The first one
-    self.onGoingProcessName = name;
+    self.onGoingProcessName = name || processName;
     $timeout(function() {
       $rootScope.$apply();
     });
   };
+  
+  var disableOngoingProcessListener = $rootScope.$on('Addon/OngoingProcess', function(e, name) {
+    self.setOngoingProcess(name, false);
+  });
 
   self.setFocusedWallet = function() {
     var fc = profileService.focusedClient;
