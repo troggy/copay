@@ -1323,11 +1323,11 @@ angular.module('copayApp.controllers').controller('indexController',
         
         tx.isColored = true;
         var nVout = colorTx.ccdata[0].payments[0].output;
-        tx.assetId = colorTx.vout[nVout].assets[0].assetId;
-
-        var asset = coloredCoins.assetsMap[tx.assetId];
-        if (!asset) return; // history may contain unsupported assets
+        var asset = colorTx.vout[nVout].assets[0];
+        tx.assetId = asset.assetId;
+        
         var amount = lodash.sum(lodash.pluck(colorTx.vout[nVout].assets, 'amount'));
+        asset.divisible = asset.divisibility;
         tx.assetAmountStr = coloredCoins.formatAssetAmount(amount, asset);
       });
     });
