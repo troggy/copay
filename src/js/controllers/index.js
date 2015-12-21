@@ -366,6 +366,7 @@ angular.module('copayApp.controllers').controller('indexController',
         $rootScope.$on('Local/WalletAssetUpdated', function() {
           self.asset = walletService.walletAsset;
           updateAndFilterHistory(false);
+          updateAndFilterProposals();
         });
         
         // Notify external addons or plugins
@@ -557,7 +558,8 @@ angular.module('copayApp.controllers').controller('indexController',
       }
       addonManager.formatPendingTxp(tx);
     });
-    self.txps = txps;
+    self.allTxps = txps;
+    updateAndFilterProposals();
   };
 
   var SAFE_CONFIRMATIONS = 6;
@@ -1331,6 +1333,10 @@ angular.module('copayApp.controllers').controller('indexController',
         tx.assetAmountStr = coloredCoins.formatAssetAmount(amount, asset);
       });
     });
+  };
+  
+  var updateAndFilterProposals = function() {
+      self.txps = lodash.filter(self.allTxps, self.filterProposals);
   };
   
   var updateAndFilterHistory = function(showAll) {
