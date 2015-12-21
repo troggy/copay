@@ -184,7 +184,7 @@
       <div 
           class="m20t text-gray size-12 text-center" 
           ng-show="!index.loadingWallet && !index.txHistory[0] && !index.updatingTxHistory[index.walletId] &&
-          !index.txHistoryError && !index.updateError" translate>
+          !index.txHistoryError && !index.updateError && index.asset.assetId" translate>
         No transactions yet
       </div>
       <div ng-show="index.updatingTxHistory[index.walletId] 
