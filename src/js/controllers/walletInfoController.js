@@ -7,17 +7,29 @@ angular.module('copayApp.controllers').controller('walletInfoController',
 
   function initAssets(assets) {
     
-    if (!assets) {
-      this.assets = [];
-      return;
-    }
-
-    this.assets = lodash.values(assets)
+    var assets = configService.getDefaults().assets.supported,
+        assetsMap = coloredCoins.assetsMap || {},
+        name, balanceStr;
+    
+    this.assets = assets
         .map(function(asset) {
+          var existingAsset = assetsMap[asset.assetId];
+          if (existingAsset && existingAsset.metadata.assetName) {
+            name = existingAsset.metadata.assetName; 
+          } else {
+            name = asset.name || asset.symbol || asset.assetId;
+          }
+          
+          if (existingAsset) {
+            balanceStr = existingAsset.balanceStr; 
+          } else {
+            var unit = coloredCoins.getAssetSymbol(asset.assetId, null);
+            balanceStr = coloredCoins.formatAssetAmount(0, null, unit);
+          }
           return {
-            assetName: asset.metadata.assetName,
+            assetName: name,
             assetId: asset.assetId,
-            balanceStr: asset.balanceStr
+            balanceStr: balanceStr
           };
         })
         .concat([{

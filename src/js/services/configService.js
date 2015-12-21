@@ -38,12 +38,13 @@ angular.module('copayApp.services').factory('configService', function(storageSer
         { assetId: "LCRSiyBZ1C8fTBDbWk2hB91NJ4eSbdgWTA9Xx" },
         { 
           assetId: "LDqBhNkag45R8KurLqB8mT2okmdtdksjkxBYh",
+          name: "Orange",
           symbol: { 
             symbol: 'Orange',
             pluralSymbol: 'Oranges'
           }
         },
-        { assetId: "U4hcbSD61752BbU9FrkVzYo1cCgQtAuBezxVD", symbol: "R$" }
+        { assetId: "U4hcbSD61752BbU9FrkVzYo1cCgQtAuBezxVD", name: "Cryptoreal", symbol: "R$" }
       ],
       defaultAsset: "U4hcbSD61752BbU9FrkVzYo1cCgQtAuBezxVD"
     },
@@ -104,7 +105,7 @@ angular.module('copayApp.services').factory('configService', function(storageSer
   };
 
   root.set = function(newOpts, cb) {
-    var config = defaultConfig;
+    var config = lodash.clone(defaultConfig);
     storageService.getConfig(function(err, oldOpts) {
       if (lodash.isString(oldOpts)) {
         oldOpts = JSON.parse(oldOpts);
