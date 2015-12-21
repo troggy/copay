@@ -41,7 +41,7 @@
 
   <ul class="no-bullet size-14 m0"> 
 
-    <li ng-if="!btx.hasMultiplesOutputs && btx.addressTo && btx.addressTo != 'N/A'" class="line-b p10 oh" ng-click="copyAddress(btx.addressTo)">
+    <li ng-if="(!btx.hasMultiplesOutputs || btx.isColored) && btx.action === 'sent' && btx.addressTo && btx.addressTo != 'N/A'" class="line-b p10 oh" ng-click="copyAddress(btx.addressTo)">
     <span class="text-gray" translate>To</span>
     <span class="right">
       <span ng-if="btx.merchant">
@@ -55,7 +55,7 @@
     </span>
     </li> 
 
-    <li ng-show="btx.hasMultiplesOutputs" class="line-b p10 oh" 
+    <li ng-show="btx.hasMultiplesOutputs && !btx.isColored" class="line-b p10 oh" 
       ng-click="showMultiplesOutputs = !showMultiplesOutputs">
       <span class="text-gray" translate>Recipients</span>
       <span class="right">{{btx.recipientCount}}
@@ -64,7 +64,7 @@
       </span>
     </li>
 
-    <div class="line-b" ng-show="btx.hasMultiplesOutputs && showMultiplesOutputs"
+    <div class="line-b" ng-show="btx.hasMultiplesOutputs && showMultiplesOutputs && !btx.isColored"
       ng-repeat="output in btx.outputs"
       ng-include="'views/includes/output.html'">
     </div>

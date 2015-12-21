@@ -1331,6 +1331,8 @@ angular.module('copayApp.controllers').controller('indexController',
         var amount = lodash.sum(lodash.pluck(colorTx.vout[nVout].assets, 'amount'));
         asset.divisible = asset.divisibility;
         tx.assetAmountStr = coloredCoins.formatAssetAmount(amount, asset);
+        tx.amountStr = tx.assetAmountStr; // for history details
+        tx.addressTo = tx.outputs[0].toAddress || tx.outputs[0].address;
       });
     });
   };
