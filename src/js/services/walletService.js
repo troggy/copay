@@ -5,9 +5,14 @@ angular.module('copayApp.services').factory('walletService',
   
   var root = {},
       self = this,
-      selectedAssetId;
+      selectedAssetId,
+      btcAsset = {
+        assetId: 'bitcoin',
+        isAsset: false
+      };
 
   root.btcBalance = null;
+  
   root.walletAsset = {
     isAsset: false
   };
@@ -15,30 +20,51 @@ angular.module('copayApp.services').factory('walletService',
   $rootScope.$on('ColoredCoins/AssetsUpdated', function() {
     root.updateWalletAsset();
   });
+  
+  var getZeroAsset = function(assetId) {
+    var unitSymbol = coloredCoins.getAssetSymbol(assetId, null);
+    var balanceStr = coloredCoins.formatAssetAmount(0, null, unitSymbol);
+    
+    return {
+      assetId: assetId,
+      unitSymbol: unitSymbol,
+      balanceStr: balanceStr,
+      availableBalance: 0,
+      availableBalanceStr: balanceStr,
+      divisible: 0
+    };
+  };
+  
+  var getBtcAsset = function(assetId) {
+    var unitSymbol = coloredCoins.getAssetSymbol(assetId, asset);
+    var balanceStr = coloredCoins.formatAssetAmount(0, null, unit);
+    
+    return {
+      assetId: assetId,
+      isAsset: false
+    };
+  };
 
   var updateAssetBalance = function() {
     if (!self.selectedAssetId) { return {}; }
-    var isAsset = self.selectedAssetId !== 'bitcoin',
-        asset, unit;
+
+    var isAsset = self.selectedAssetId !== btcAsset.assetId,
+        asset, unit, balanceStr;
     
     if (isAsset) {
-      var assets = lodash.filter(coloredCoins.assets, function(asset) {
+      var asset = lodash.find(coloredCoins.assets, function(asset) {
          return asset.assetId == self.selectedAssetId;
        });
        
-       if (assets.length == 0) { return {}; }
-       
-       asset = assets[0];
-       unit = coloredCoins.getAssetSymbol(self.selectedAssetId, asset);
+       if (!asset) {
+          asset = getZeroAsset(self.selectedAssetId);
+       }
+       asset.isAsset = isAsset;
+     } else {
+       asset = btcAsset;
      }
      
-     root.walletAsset = { 
-       assetId: self.selectedAssetId,
-       isAsset: isAsset,
-       balanceStr: isAsset ? asset.balanceStr : root.btcBalance,
-       unit: unit,
-       asset: asset
-     };
+     root.walletAsset = asset;
      $rootScope.$emit("Local/WalletAssetUpdated", root.walletAsset);
      return root.walletAsset;
   };

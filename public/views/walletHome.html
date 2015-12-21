@@ -85,11 +85,13 @@
               <br><span translate>Tap to retry</span>
             </div>
 
-            <div ng-click='index.updateAll({triggerTxUpdate: true})'  ng-show="index.asset.balanceStr && !index.updateError && index.walletScanStatus != 'error'">
-              <strong class="size-36" ng-show="index.asset && index.asset.isAsset">{{index.asset.balanceStr}}</strong>
-              <strong class="size-36" ng-show="index.asset && !index.asset.isAsset">{{index.totalBalanceStr}}</strong>
+            <div ng-click='index.updateAll({triggerTxUpdate: true})' 
+              ng-show="index.asset.assetId && !index.updateError && index.walletScanStatus != 'error'">
+              <strong class="size-36" ng-show="index.asset.isAsset">{{index.asset.balanceStr}}</strong>
+              
+              <strong class="size-36" ng-show="!index.asset.isAsset">{{index.totalBalanceStr}}</strong>
               <div class="size-14"
-                ng-if="index.totalBalanceAlternative" ng-hide="true">
+                ng-if="index.totalBalanceAlternative && !index.asset.isAsset">
                 {{index.totalBalanceAlternative}} {{index.alternativeIsoCode}}
               </div>
               <div class="size-14"
@@ -171,9 +173,9 @@
             {{index.alternativeIsoCode}} </span>
         </div>
         <div class="text-gray text-center size-12 p10t"
-            ng-show="index.asset.asset.lockedBalanceStr && index.asset.isAsset">
+            ng-show="index.asset.lockedBalanceStr && index.asset.isAsset">
           <span translate>Total Locked Assets</span>:
-          <b>{{index.asset.asset.lockedBalanceStr}} </b>
+          <b>{{index.asset.lockedBalanceStr}} </b>
         </div>
       </div>
 
@@ -484,8 +486,8 @@
                     <span translate>Amount</span>
                   </label>
                   <div class="input">
-                    <input type="number" id="amount" ng-disabled="home.blockUx || home.lockAmount" name="amount" ng-attr-placeholder="{{'Amount in'|translate}} {{index.asset.unit.pluralSymbol}}" ng-minlength="0.00000001" ng-maxlength="10000000000" ng-model="_amount" valid-amount required autocomplete="off" ng-focus="home.formFocus('amount')" ng-blur="home.formFocus(false)">
-                    <a class="postfix button auto-width" ng-style="{'background-color':index.backgroundColor}">{{index.asset.unit.pluralSymbol}}</a>
+                    <input type="number" id="amount" ng-disabled="home.blockUx || home.lockAmount" name="amount" ng-attr-placeholder="{{'Amount in'|translate}} {{index.asset.unitSymbol.pluralSymbol}}" ng-minlength="0.00000001" ng-maxlength="10000000000" ng-model="_amount" valid-amount required autocomplete="off" ng-focus="home.formFocus('amount')" ng-blur="home.formFocus(false)">
+                    <a class="postfix button auto-width" ng-style="{'background-color':index.backgroundColor}">{{index.asset.unitSymbol.pluralSymbol}}</a>
                   </div>
                 </div>
                 <div ng-if="home.canShowAlternative() && !index.asset.isAsset">
