@@ -314,3 +314,6 @@
 .icon-arrow-up4:before {
 	content: "\e60e";
 }
+.icon-mobile:before {
+    content: "\e904";
+}
