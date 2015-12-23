@@ -81,9 +81,11 @@ module.exports = function(grunt) {
           'bower_components/angular-gettext/dist/angular-gettext.js',
           'bower_components/angular-touch/angular-touch.js',
           'bower_components/angular-ui-switch/angular-ui-switch.js',
-          'bower_components/angular-sanitize/angular-sanitize.js',
-          'bower_components/ng-csv/build/ng-csv.js',
-          'angular-bitcore-wallet-client/angular-bitcore-wallet-client.js'
+          'angular-bitcore-wallet-client/angular-bitcore-wallet-client.js',
+          'bower_components/intl-tel-input/build/js/intlTelInput.js',
+          'bower_components/intl-tel-input/lib/libphonenumber/build/utils.js',
+          'bower_components/international-phone-number/releases/international-phone-number.js',
+          'bower_components/copay-bitrefill/dist/js/copayBitrefill.js'
         ],
         dest: 'public/lib/angular.js'
       },
@@ -114,7 +116,9 @@ module.exports = function(grunt) {
           'bower_components/angular/angular-csp.css',
           'bower_components/foundation/css/foundation.css',
           'bower_components/animate.css/animate.css',
-          'bower_components/angular-ui-switch/angular-ui-switch.css'
+          'bower_components/angular-ui-switch/angular-ui-switch.css',
+          'bower_components/intl-tel-input/build/css/intlTelInput.css',
+          'bower_components/copay-bitrefill/dist/css/copayBitrefill.css'
         ],
         dest: 'public/css/foundation.css',
       }
