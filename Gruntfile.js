@@ -85,6 +85,8 @@ module.exports = function(grunt) {
           'bower_components/intl-tel-input/build/js/intlTelInput.js',
           'bower_components/intl-tel-input/lib/libphonenumber/build/utils.js',
           'bower_components/international-phone-number/releases/international-phone-number.js',
+          'bower_components/ngBitrefill/ngBitrefill.js',
+          'bower_components/angular-base64/angular-base64.js',
           'bower_components/copay-bitrefill/dist/js/copayBitrefill.js'
         ],
         dest: 'public/lib/angular.js'
