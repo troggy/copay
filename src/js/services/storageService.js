@@ -210,6 +210,14 @@ angular.module('copayApp.services')
     root.getRemotePrefsStoredFlag = function(cb) {
       storage.get('remotePrefStored', cb);
     };
+    
+    root.setBitrefillReceiptEmail = function(email, cb) {
+      storage.set('bitrefillEmail', email, cb);
+    };
+    
+    root.getBitrefillReceiptEmail = function(cb) {
+      storage.get('bitrefillEmail', cb);
+    };
 
     root.setGlideraToken = function(network, token, cb) {
       storage.set('glideraToken-' + network, token, cb);
