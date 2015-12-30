@@ -23,6 +23,6 @@
     "ng-lodash": "0.2.3",
     "qrcode-decoder-js": "*",
     "trezor-connect": "~1.0.1",
-    "copay-bitrefill": "~1.0.0"
+    "copay-bitrefill": "~1.0.1"
   }
 }
