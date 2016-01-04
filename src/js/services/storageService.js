@@ -219,6 +219,19 @@ angular.module('copayApp.services')
       storage.get('bitrefillEmail', cb);
     };
 
+    root.setBitrefillConfig = function(config, cb) {
+      storage.set('bitrefillConfig', JSON.stringify(config), cb);
+    };
+    
+    root.getBitrefillConfig = function(cb) {
+      storage.get('bitrefillConfig', function(err, config) {
+        if (config) {
+          config = JSON.parse(config);
+        }
+        cb(err, config);
+      });
+    };
+
     root.setGlideraToken = function(network, token, cb) {
       storage.set('glideraToken-' + network, token, cb);
     };
