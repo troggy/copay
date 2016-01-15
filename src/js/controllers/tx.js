@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('copayApp.controllers').controller('txController',
-  function($rootScope, $scope, $timeout, $filter, lodash, profileService, isCordova, nodeWebkit, configService, animationService, gettextCatalog) {
+  function($rootScope, $scope, $timeout, $filter, lodash, profileService, isCordova, nodeWebkit, configService, animationService, gettextCatalog, bitrefill) {
 
     var fc = profileService.focusedClient;
     var config = configService.getSync();
@@ -14,6 +14,27 @@ angular.module('copayApp.controllers').controller('txController',
     this.color = fc.backgroundColor;
     this.copayerId = fc.credentials.copayerId;
     this.isShared = fc.credentials.n > 1;
+
+    $rootScope.$watch('index.showTx', function(newTx, oldTx) {
+      if (newTx !== oldTx && newTx.customData && newTx.customData.bitrefillOrderId) {
+        $scope.orderId = newTx.customData.bitrefillOrderId;
+        $scope.deliveryStatus = "N/A";
+        bitrefill.orderStatus(newTx.customData.bitrefillOrderId, function(err, status) {
+          if (err) {
+            return;
+          }
+          if (status.delivered) {
+            $scope.deliveryStatus = "delivered";
+          } else if (!status.paymentRecieved && !status.failed) {
+            $scope.deliveryStatus = "awaiting payment";
+          } else if (status.failed) {
+            $scope.deliveryStatus = "failed";
+          } else {
+            $scope.deliveryStatus = "in progress";
+          }
+        });
+      }
+    });
 
     if (isCordova) {
       $rootScope.modalOpened = true;
