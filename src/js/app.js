@@ -20,6 +20,8 @@ var modules = [
 
 var copayApp = window.copayApp = angular.module('copayApp', modules);
 
+copayApp.constant('isDebug', false);
+
 angular.module('copayApp.filters', []);
 angular.module('copayApp.services', []);
 angular.module('copayApp.controllers', []);
