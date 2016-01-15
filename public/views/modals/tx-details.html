@@ -129,6 +129,22 @@
       </li>
     </ul>
   </div>
+  
+  <div ng-show="isBitrefill">
+    <h4 class="title m0" translate>Bitrefill</h4>
+
+    <ul class="no-bullet size-14 m0"> 
+      <li ng-show="orderId" class="line-b p10 oh">
+        <span class="text-gray" translate>Order ID</span>
+        <span class="right">{{ orderId }}</span>
+      </li>
+
+      <li ng-show="deliveryStatus" class="line-b p10 oh">
+        <span class="text-gray" translate>Order delivery status</span>
+        <span class="right">{{ deliveryStatus }}</span>
+      </li>
+    </ul>
+  </div>
 
   <div ng-show="btx.txid" class="tx-details-blockchain">
     <div class="text-center m20t">
