@@ -60,7 +60,7 @@ module.exports = function(grunt) {
           'bower_components/angular-touch/angular-touch.js',
           'bower_components/angular-ui-switch/angular-ui-switch.js',
           'angular-bitcore-wallet-client/angular-bitcore-wallet-client.js',
-          'bower_componebts/jquery/dist/jquery.js',
+          'bower_components/jquery/dist/jquery.js',
           'bower_components/intl-tel-input/build/js/intlTelInput.js',
           'bower_components/intl-tel-input/lib/libphonenumber/build/utils.js',
           'bower_components/international-phone-number/releases/international-phone-number.js',
