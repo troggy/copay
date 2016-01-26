@@ -59,7 +59,8 @@
   },
   "scripts": {
     "start": "node app.js",
-    "test": "./node_modules/.bin/grunt test-coveralls"
+    "test": "./node_modules/.bin/grunt test-coveralls",
+    "build": "cd bower_components/copay-bitrefill/ && grunt && cd - && grunt"
   },
   "devDependencies": {
     "adm-zip": "^0.4.7",
