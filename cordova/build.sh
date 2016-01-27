@@ -150,6 +150,9 @@ if [ ! -d $PROJECT ]; then
   cordova plugin add cordova-ios-requires-fullscreen
   checkOK
 
+  cordova plugin add cordova-plugin-sim
+  checkOK
+
 fi
 
 if $DBGJS
