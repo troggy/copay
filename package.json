@@ -55,6 +55,7 @@
   },
   "scripts": {
     "start": "node app.js",
+    "setup": "cd bower_components/colored-coins-copay-addon && npm i && cd -",
     "test": "./node_modules/.bin/grunt test-coveralls"
   },
   "devDependencies": {
