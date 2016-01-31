@@ -17,12 +17,12 @@
     "ng-lodash": "~0.2.0",
     "angular-moment": "0.10.1",
     "moment": "2.10.3",
-    "angular-bitcore-wallet-client": "troggy/angular-bitcore-wallet-client#4757cfd309665902e67a2b2cd3d78bd91b224ae3",
+    "angular-bitcore-wallet-client": "troggy/angular-bitcore-wallet-client#wip",
     "angular-ui-router": "~0.2.13",
     "qrcode-decoder-js": "*",
     "fastclick": "*",
     "angular-ui-switch": "~0.1.0",
-    "copay-colored-coins-plugin": "Colored-Coins/Colored-coins-add-on-for-Copay#~1.2.0"
+    "colored-coins-copay-addon": "~1.2.1"
   },
   "resolutions": {
     "qrcode-generator": "0.0.1"
