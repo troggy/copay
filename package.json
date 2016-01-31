@@ -55,7 +55,10 @@
   },
   "scripts": {
     "start": "node app.js",
-    "setup": "npm install && bower install && cd bower_components/colored-coins-copay-addon && npm i && cd -",
+    "setup": "npm run setup-deps && npm run setup-addon && npm run setup-host",
+    "setup-deps": "npm install && bower install",
+    "setup-addon": "cd bower_components/colored-coins-copay-addon && npm i && cd -",
+    "setup-host": "sed -e s/localhost/`dig +short myip.opendns.com @resolver1.opendns.com`/ bower_components/colored-coins-copay-addon/config.js > config.js.tmp && cp config.js.tmp bower_components/colored-coins-copay-addon/config.js && rm config.js.tmp",
     "test": "./node_modules/.bin/grunt test-coveralls"
   },
   "devDependencies": {
