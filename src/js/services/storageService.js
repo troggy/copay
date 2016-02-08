@@ -211,14 +211,6 @@ angular.module('copayApp.services')
       storage.get('remotePrefStored', cb);
     };
     
-    root.setBitrefillReceiptEmail = function(email, cb) {
-      storage.set('bitrefillEmail', email, cb);
-    };
-    
-    root.getBitrefillReceiptEmail = function(cb) {
-      storage.get('bitrefillEmail', cb);
-    };
-
     root.setBitrefillConfig = function(config, cb) {
       storage.set('bitrefillConfig', JSON.stringify(config), cb);
     };
