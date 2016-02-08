@@ -152,6 +152,9 @@ if [ ! -d $PROJECT ]; then
 
   cordova plugin add cordova-plugin-sim
   checkOK
+  
+  cordova plugin add cordova-plugin-contacts
+  checkOK
 
 fi
 
