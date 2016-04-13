@@ -81,6 +81,8 @@ module.exports = function(grunt) {
           'bower_components/angular-gettext/dist/angular-gettext.js',
           'bower_components/angular-touch/angular-touch.js',
           'bower_components/angular-ui-switch/angular-ui-switch.js',
+          'bower_components/angular-sanitize/angular-sanitize.js',
+          'bower_components/ng-csv/build/ng-csv.js',
           'angular-bitcore-wallet-client/angular-bitcore-wallet-client.js',
           'bower_components/intl-tel-input/build/js/intlTelInput.js',
           'bower_components/intl-tel-input/lib/libphonenumber/build/utils.js',
@@ -241,6 +243,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-string-replace');
 
   grunt.registerTask('default', ['nggettext_compile', 'exec:version', 'exec:coinbase', 'browserify', 'concat', 'copy:icons']);
+  grunt.registerTask('fast', ['nggettext_compile', 'exec:version', 'exec:coinbase', 'concat', 'copy:icons']);
   grunt.registerTask('prod', ['default', 'uglify']);
   grunt.registerTask('translate', ['nggettext_extract']);
   grunt.registerTask('test', ['karma:unit']);
