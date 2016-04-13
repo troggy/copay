@@ -9,7 +9,7 @@ angular.module('copayApp.services').factory('txFormatService', function(profileS
     return profileService.formatAmount(amount) + ' ' + config.unitName;
   };
 
-  var formatAlternativeStr = function(amount) {
+  root.formatAlternativeStr = function(amount) {
     if (!amount) return;
     var config = configService.getSync().wallet.settings;
     return (rateService.toFiat(amount, config.alternativeIsoCode) ? rateService.toFiat(amount, config.alternativeIsoCode).toFixed(2) : 'N/A') + ' ' + config.alternativeIsoCode;
@@ -22,8 +22,8 @@ angular.module('copayApp.services').factory('txFormatService', function(profileS
   };
 
   root.processTx = function(tx) {
-    if (!tx || tx.action == 'invalid') 
-      return tx; 
+    if (!tx || tx.action == 'invalid')
+      return tx;
 
     // New transaction output format
     if (tx.outputs && tx.outputs.length) {
@@ -37,15 +37,15 @@ angular.module('copayApp.services').factory('txFormatService', function(profileS
         }
         tx.amount = lodash.reduce(tx.outputs, function(total, o) {
           o.amountStr = formatAmountStr(o.amount);
-          o.alternativeAmountStr = formatAlternativeStr(o.amount);
+          o.alternativeAmountStr = root.formatAlternativeStr(o.amount);
           return total + o.amount;
         }, 0);
       }
       tx.toAddress = tx.outputs[0].toAddress;
-    } 
+    }
 
     tx.amountStr = formatAmountStr(tx.amount);
-    tx.alternativeAmountStr = formatAlternativeStr(tx.amount);
+    tx.alternativeAmountStr = root.formatAlternativeStr(tx.amount);
     tx.feeStr = formatFeeStr(tx.fee || tx.fees);
 
     return tx;
