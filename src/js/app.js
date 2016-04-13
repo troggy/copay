@@ -8,7 +8,7 @@ var modules = [
   'gettext',
   'ngLodash',
   'uiSwitch',
-  'ngSanitize', 
+  'ngSanitize',
   'ngCsv',
   'bwcModule',
   'copayApp.filters',
@@ -27,4 +27,3 @@ angular.module('copayApp.services', []);
 angular.module('copayApp.controllers', []);
 angular.module('copayApp.directives', []);
 angular.module('copayApp.addons', ['copayAddon.bitrefill']);
-
