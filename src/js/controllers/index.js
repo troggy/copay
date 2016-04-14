@@ -1689,6 +1689,9 @@ angular.module('copayApp.controllers').controller('indexController', function($r
   });
 
   $rootScope.$on('Local/TxModal', function(event, tx) {
+    if (tx && tx.customData && typeof tx.customData === 'string') {
+      tx.customData = JSON.parse(tx.customData);
+    }
     self.showTx = tx;
     $timeout(function() {
       $rootScope.$apply();

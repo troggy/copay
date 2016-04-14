@@ -15,26 +15,26 @@ angular.module('copayApp.controllers').controller('txController',
     this.copayerId = fc.credentials.copayerId;
     this.isShared = fc.credentials.n > 1;
 
-    $rootScope.$watch('index.showTx', function(newTx, oldTx) {
-      if (newTx !== oldTx && newTx.customData && newTx.customData.bitrefillOrderId) {
-        $scope.orderId = newTx.customData.bitrefillOrderId;
-        $scope.deliveryStatus = "N/A";
-        bitrefill.orderStatus(newTx.customData.bitrefillOrderId, function(err, status) {
+    this.getWithOrderStatus = function(tx) {
+      if (tx.customData && tx.customData.bitrefillOrderId) {
+        tx.orderId = tx.customData.bitrefillOrderId;
+        tx.deliveryStatus = "N/A";
+        bitrefill.orderStatus(tx.customData.bitrefillOrderId, function(err, status) {
           if (err) {
             return;
           }
           if (status.delivered) {
-            $scope.deliveryStatus = "delivered";
+            tx.deliveryStatus = "delivered";
           } else if (!status.paymentRecieved && !status.failed) {
-            $scope.deliveryStatus = "awaiting payment";
+            tx.deliveryStatus = "awaiting payment";
           } else if (status.failed) {
-            $scope.deliveryStatus = "failed";
+            tx.deliveryStatus = "failed";
           } else {
-            $scope.deliveryStatus = "in progress";
+            tx.deliveryStatus = "in progress";
           }
         });
       }
-    });
+    };
 
     if (isCordova) {
       $rootScope.modalOpened = true;

@@ -145,18 +145,18 @@
       </ul>
     </div>
 
-    <div ng-show="index.showTx.customData && index.showTx.customData.bitrefillOrderId">
+    <div ng-show="index.showTx.customData && index.showTx.customData.bitrefillOrderId" ng-init="txc.getWithOrderStatus(index.showTx)">
       <h4 class="title m0" translate>Bitrefill</h4>
 
       <ul class="no-bullet size-14 m0">
-        <li ng-show="orderId" class="line-b p10 oh">
+        <li ng-show="index.showTx.orderId" class="line-b p10 oh">
           <span class="text-gray" translate>Order ID</span>
-          <span class="right enable_text_select">{{ txc.orderId }}</span>
+          <span class="right enable_text_select">{{ index.showTx.orderId }}</span>
         </li>
 
-        <li ng-show="deliveryStatus" class="line-b p10 oh">
+        <li ng-show="index.showTx.deliveryStatus" class="line-b p10 oh">
           <span class="text-gray" translate>Order delivery status</span>
-          <span class="right">{{ txc.deliveryStatus }}</span>
+          <span class="right">{{ index.showTx.deliveryStatus }}</span>
         </li>
       </ul>
     </div>
