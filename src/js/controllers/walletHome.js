@@ -330,6 +330,9 @@ angular.module('copayApp.controllers').controller('walletHomeController', functi
           tx.canBeRemoved = (Date.now() / 1000 - (tx.ts || tx.createdOn)) > GLIDERA_LOCK_TIME;
         }
       }
+      if (tx.customData && typeof tx.customData === 'string') {
+        tx.customData = JSON.parse(tx.customData);
+      }
       $scope.tx = tx;
       $scope.currentSpendUnconfirmed = currentSpendUnconfirmed;
 
