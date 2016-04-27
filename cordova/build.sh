@@ -105,7 +105,7 @@ if [ ! -d $PROJECT ]; then
   cordova plugin add cordova-plugin-statusbar
   checkOK
 
-  cordova plugin add phonegap-plugin-push@1.2.3
+  cordova plugin add phonegap-plugin-push@1.4.0
   checkOK
 
   cordova plugin add cordova-plugin-customurlscheme --variable URL_SCHEME=bitcoin
@@ -152,7 +152,7 @@ if [ ! -d $PROJECT ]; then
 
   cordova plugin add cordova-plugin-sim
   checkOK
-  
+
   cordova plugin add cordova-plugin-contacts
   checkOK
 
@@ -196,8 +196,8 @@ if [ $CURRENT_OS == "ANDROID" ]; then
   cp android/build-extras.gradle $PROJECT/platforms/android/build-extras.gradle
   checkOK
 
-  cp android/project.properties $PROJECT/platforms/android/project.properties
-  checkOK
+#  cp android/project.properties $PROJECT/platforms/android/project.properties
+#  checkOK
 
   cp -R android/res/* $PROJECT/platforms/android/res
   checkOK
